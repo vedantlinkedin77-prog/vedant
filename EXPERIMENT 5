@@ -1,0 +1,144 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class Book {
+private:
+    int bookId;
+    string title;
+    string author;
+    string category;
+    int publicationYear;
+    float price;
+    float discount;
+    float finalPrice;
+
+    static int bookCount;
+
+public:
+
+    // Parameterized Constructor
+    Book(int id = 0, string t = "Unknown",
+         string a = "Unknown", string c = "General",
+         int year = 0, float p = 0.0) {
+
+        bookId = id;
+        title = t;
+        author = a;
+        category = c;
+        publicationYear = year;
+        price = p;
+
+        calculatePrice();
+
+        bookCount++;
+
+        cout << "Book object created." << endl;
+    }
+
+    // Copy Constructor
+    Book(const Book &b) {
+        bookId = b.bookId;
+        title = b.title;
+        author = b.author;
+        category = b.category;
+        publicationYear = b.publicationYear;
+        price = b.price;
+        discount = b.discount;
+        finalPrice = b.finalPrice;
+
+        bookCount++;
+
+        cout << "Book object copied using Copy Constructor." << endl;
+    }
+
+    // Calculate discount and final price
+    void calculatePrice() {
+        if (price >= 3000)
+            discount = price * 0.15;
+        else if (price >= 1500)
+            discount = price * 0.10;
+        else
+            discount = price * 0.05;
+
+        finalPrice = price - discount;
+    }
+
+    // Display book details
+    void display() const {
+        cout << "\n====================================\n";
+        cout << "             BOOK DETAILS           \n";
+        cout << "====================================\n";
+
+        cout << fixed << setprecision(2);
+
+        cout << "Book ID          : " << bookId << endl;
+        cout << "Title            : " << title << endl;
+        cout << "Author           : " << author << endl;
+        cout << "Category         : " << category << endl;
+        cout << "Publication Year : " << publicationYear << endl;
+        cout << "Original Price   : Rs. " << price << endl;
+        cout << "Discount         : Rs. " << discount << endl;
+        cout << "Final Price      : Rs. " << finalPrice << endl;
+
+        cout << "====================================\n";
+    }
+
+    // Static function to get total books
+    static int getBookCount() {
+        return bookCount;
+    }
+};
+
+// Initialize static member
+int Book::bookCount = 0;
+
+int main() {
+
+    int id, year;
+    string title, author, category;
+    float price;
+
+    cout << "Enter Book Details\n";
+
+    cout << "Book ID: ";
+    cin >> id;
+
+    cin.ignore();
+
+    cout << "Book Title: ";
+    getline(cin, title);
+
+    cout << "Author Name: ";
+    getline(cin, author);
+
+    cout << "Category: ";
+    getline(cin, category);
+
+    cout << "Publication Year: ";
+    cin >> year;
+
+    cout << "Book Price: ";
+    cin >> price;
+
+    // Create first book object
+    cout << "\nCreating first book...\n";
+
+    Book b1(id, title, author, category, year, price);
+
+    b1.display();
+
+    // Create second object using copy constructor
+    cout << "\nCreating copy of the book...\n";
+
+    Book b2(b1);
+
+    b2.display();
+
+    // Display total objects
+    cout << "\nTotal Book Objects Created: "
+         << Book::getBookCount() << endl;
+
+    return 0;
+}
