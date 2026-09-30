@@ -1,0 +1,93 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+class Rectangle {
+private:
+    float length;
+    float breadth;
+
+public:
+    // Constructor
+    Rectangle(float l = 0, float b = 0) {
+        length = l;
+        breadth = b;
+    }
+
+    // Function to set dimensions
+    void setDimensions(float l, float b) {
+        length = l;
+        breadth = b;
+    }
+
+    // Function to calculate area
+    float calculateArea() {
+        return length * breadth;
+    }
+
+    // Function to calculate perimeter
+    float calculatePerimeter() {
+        return 2 * (length + breadth);
+    }
+
+    // Function to calculate diagonal
+    float calculateDiagonal() {
+        return sqrt((length * length) + (breadth * breadth));
+    }
+
+    // Function to check whether it is a square
+    bool isSquare() {
+        return length == breadth;
+    }
+
+    // Function to display details
+    void display() {
+        cout << "\n==============================\n";
+        cout << "       RECTANGLE DETAILS      \n";
+        cout << "==============================\n";
+
+        cout << fixed << setprecision(2);
+
+        cout << "Length      : " << length << endl;
+        cout << "Breadth     : " << breadth << endl;
+        cout << "Area        : " << calculateArea() << endl;
+        cout << "Perimeter   : " << calculatePerimeter() << endl;
+        cout << "Diagonal    : " << calculateDiagonal() << endl;
+
+        if (isSquare())
+            cout << "Type        : Square" << endl;
+        else
+            cout << "Type        : Rectangle" << endl;
+
+        cout << "==============================\n";
+    }
+};
+
+int main() {
+    float l, b;
+
+    cout << "Enter length: ";
+    cin >> l;
+
+    cout << "Enter breadth: ";
+    cin >> b;
+
+    // Validate input
+    while (l <= 0 || b <= 0) {
+        cout << "\nInvalid dimensions!";
+        cout << "\nPlease enter positive values.\n";
+
+        cout << "Enter length: ";
+        cin >> l;
+
+        cout << "Enter breadth: ";
+        cin >> b;
+    }
+
+    Rectangle rect(l, b);
+
+    rect.display();
+
+    return 0;
+}
