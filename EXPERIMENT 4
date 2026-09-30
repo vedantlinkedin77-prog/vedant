@@ -1,0 +1,112 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class Employee {
+private:
+    int empId;
+    string name;
+    float basicSalary;
+    float allowance;
+    float deduction;
+    float grossSalary;
+    float netSalary;
+
+public:
+    // Default Constructor
+    Employee() {
+        empId = 0;
+        name = "Not Assigned";
+        basicSalary = 0;
+        allowance = 0;
+        deduction = 0;
+        grossSalary = 0;
+        netSalary = 0;
+
+        cout << "Default Constructor Called" << endl;
+    }
+
+    // Parameterized Constructor
+    Employee(int id, string n, float salary,
+             float allow, float deduct) {
+        empId = id;
+        name = n;
+        basicSalary = salary;
+        allowance = allow;
+        deduction = deduct;
+
+        calculateSalary();
+
+        cout << "Parameterized Constructor Called" << endl;
+    }
+
+    // Calculate salary
+    void calculateSalary() {
+        grossSalary = basicSalary + allowance;
+        netSalary = grossSalary - deduction;
+    }
+
+    // Display employee details
+    void display() const {
+        cout << "\n================================\n";
+        cout << "       EMPLOYEE DETAILS         \n";
+        cout << "================================\n";
+
+        cout << fixed << setprecision(2);
+
+        cout << "Employee ID    : " << empId << endl;
+        cout << "Name           : " << name << endl;
+        cout << "Basic Salary   : Rs. " << basicSalary << endl;
+        cout << "Allowance      : Rs. " << allowance << endl;
+        cout << "Gross Salary   : Rs. " << grossSalary << endl;
+        cout << "Deduction      : Rs. " << deduction << endl;
+        cout << "Net Salary     : Rs. " << netSalary << endl;
+
+        // Employee category
+        if (basicSalary >= 50000)
+            cout << "Category       : Senior Employee" << endl;
+        else
+            cout << "Category       : Junior Employee" << endl;
+
+        cout << "================================\n";
+    }
+};
+
+int main() {
+
+    // Object using default constructor
+    Employee emp1;
+    emp1.display();
+
+    // Taking employee details from user
+    int id;
+    string name;
+    float salary, allowance, deduction;
+
+    cout << "\nEnter Employee Details\n";
+
+    cout << "Employee ID: ";
+    cin >> id;
+
+    cin.ignore();
+
+    cout << "Employee Name: ";
+    getline(cin, name);
+
+    cout << "Basic Salary: ";
+    cin >> salary;
+
+    cout << "Allowance: ";
+    cin >> allowance;
+
+    cout << "Deduction: ";
+    cin >> deduction;
+
+    // Object using parameterized constructor
+    Employee emp2(id, name, salary, allowance, deduction);
+
+    emp2.display();
+
+    return 0;
+}
